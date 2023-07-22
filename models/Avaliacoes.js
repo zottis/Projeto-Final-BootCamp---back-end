@@ -109,7 +109,6 @@ Avaliacoes.belongsTo(Usuarios, {
   onUpdate: 'CASCADE',
 });
 
-
 // Avaliacoes.belongsTo(Alunos, {
 //   as: 'aluno',
 //   uniqueKey: 'avaliacoes_fk_alu',
