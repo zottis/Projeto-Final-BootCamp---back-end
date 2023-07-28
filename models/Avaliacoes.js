@@ -29,19 +29,24 @@ const Avaliacoes = sequelize.define(
     },
 
     peso: {
-      type: DataTypes.DECIMAL(10.0),
+      type: DataTypes.DECIMAL(10,2),
       allowNull: false,
     },
 
     altura: {
-      type: DataTypes.DECIMAL(10.0),
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
 
     resultado: {
-      type: DataTypes.DECIMAL(10.0),
+      type: DataTypes.DECIMAL(10,2),
       allowNull: false,
       index: true,
+    },
+
+    situacao: {
+      type: DataTypes.STRING(80),
+      allowNull: true,  
     },
 
     id_usuario: {

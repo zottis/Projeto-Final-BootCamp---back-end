@@ -5,6 +5,7 @@ const { checarResultadoValidacao } = require('../validators');
 
 const Avaliacoes = require('../models/Avaliacoes');
 const { validadorCadastroAvaliacao, validadorAtualizacaoAvaliacao } = require('../validators/avaliacoes');
+const { ValidationError } = require('sequelize');
 
 const router = express.Router();
 
@@ -34,7 +35,7 @@ router.post(
     try {
       const { usuarioLogado, body } = req;
 
-      const { dt_avaliacao, id_aluno, idade, peso, altura, resultado } = body;
+      const { dt_avaliacao, id_aluno, idade, peso, altura, resultado, situacao } = body;
 
       const avaliacao = await Avaliacoes.create({
         dt_avaliacao,
@@ -43,6 +44,7 @@ router.post(
         peso,
         altura,
         resultado,
+        situacao,
         id_usuario: usuarioLogado.id_usuario,
       });
 
@@ -72,7 +74,7 @@ router.get(
 
       const { alunoId } = params;
 
-      const avaliacoes = await Avaliacoes.findOne({
+      const avaliacoes = await Avaliacoes.findAll({
         where: {
           id_aluno: alunoId,
         },
@@ -137,7 +139,7 @@ router.get(
 
       const { avaliacaoId } = params;
 
-      const avaliacao = await Avaliacoes.findOne({
+      const avaliacao = await Avaliacoes.findAll({
         where: {
           id_avaliacao: avaliacaoId,
         },
@@ -173,7 +175,7 @@ router.patch(
       const { usuarioLogado, params, body } = req;
 
       const { avaliacaoId } = params;
-      const { dt_avaliacao, idade, peso, altura, resultado } = body;
+      const { dt_avaliacao, idade, peso, altura, resultado, situacao } = body;
 
       await Avaliacoes.update(
         {
@@ -182,15 +184,16 @@ router.patch(
           peso,
           altura,
           resultado,
+          situacao,
         },
         {
           where: {
-            id: avaliacaoId,            
+            id_avaliacao: avaliacaoId,            
           },
         },
       );
 
-      const avaliacao = await Avaliacoes.findOne({
+      const avaliacao = await Avaliacoes.findAll({
         where: {
           id_avaliacao: avaliacaoId,
         },
@@ -221,7 +224,7 @@ router.delete(
 
       const result = await Avaliacoes.destroy({
         where: {
-          id: avaliacaoId,          
+          id_avaliacao: avaliacaoId,          
         },
       });
 
