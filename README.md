@@ -4,7 +4,7 @@
                Anderson Burnes 
 
 - Alunos: José Mauricio Barbisan Zottis,
-          Bianca Moreira Pinto da Silva
+          
 
     ```
     npm run dev
